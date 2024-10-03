@@ -23,7 +23,7 @@
                     <?php print(RequestHelper::$actor_action); ?>
                 </h1>
 
-				<main>
+				<main id="main">
                 </main>
 
                 <br clear="all" />

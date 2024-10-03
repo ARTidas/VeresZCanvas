@@ -58,6 +58,8 @@
     require(RequestHelper::$file_root . '/views/project_abstract_view.php');
     require(RequestHelper::$file_root . '/views/index_view.php');
     require(RequestHelper::$file_root . '/views/message_queue_view_view.php');
+    require(RequestHelper::$file_root . '/views/message_queue_get_view.php');
+    require(RequestHelper::$file_root . '/views/message_queue_mqtt_view.php');
     require(RequestHelper::$file_root . '/views/sensor_display_view.php');
 
 ?>
