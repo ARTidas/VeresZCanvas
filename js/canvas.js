@@ -13,9 +13,9 @@ class Canvas extends Genesys {
     };
 
     getWidth() {
-        return window.innerWidth * 0.98;
+        return window.innerWidth * 0.93;
     };
     getHeight() {
-        return window.innerHeight * 0.95;
+        return window.innerHeight * 0.75;
     };
 }

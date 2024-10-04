@@ -27,6 +27,14 @@
                     const client = mqtt.connect(broker, options);
                     let simulationInterval = null;
 
+                    // Variables to hold current orientation
+                    let currentPitch = 0;
+                    let currentRoll = 0;
+                    let currentYaw = 0;
+
+                    // Set the maximum change in degrees for each rotation per step
+                    const maxRotationDegree = 5;  // Max change of 5 degrees per step
+
                     client.on('connect', function () {
                         console.log('Connected for simulation');
                     });
@@ -39,15 +47,25 @@
                     function startSimulation() {
                         if (!simulationInterval) {
                             simulationInterval = setInterval(() => {
+                                // Generate random changes within the maxRotationDegree limit
+                                const pitchChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
+                                const rollChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
+                                const yawChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
+
+                                // Update current values
+                                currentPitch = (parseFloat(currentPitch) + parseFloat(pitchChange)) % 360;
+                                currentRoll = (parseFloat(currentRoll) + parseFloat(rollChange)) % 360;
+                                currentYaw = (parseFloat(currentYaw) + parseFloat(yawChange)) % 360;
+
                                 const simulatedMessage = JSON.stringify({
-                                    pitch: (Math.random() * 360 - 180).toFixed(2),
-                                    roll: (Math.random() * 360 - 180).toFixed(2),
-                                    yaw: (Math.random() * 360 - 180).toFixed(2),
+                                    pitch: currentPitch.toFixed(2),
+                                    roll: currentRoll.toFixed(2),
+                                    yaw: currentYaw.toFixed(2),
                                     timestamp: new Date().toISOString()
                                 });
 
                                 client.publish('VeresZLidar', simulatedMessage);
-                                console.log('Simulated message sent:', simulatedMessage);
+                                //console.log('Simulated message sent:', simulatedMessage);
                             }, 1000);
 
                             document.getElementById('startBtn').disabled = true;

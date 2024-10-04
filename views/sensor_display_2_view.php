@@ -41,7 +41,7 @@
                     client.on('message', function (topic, message) {
                         // Message is Buffer, so convert it to string
                         const msg = JSON.parse(message.toString());
-                        console.log('Message received:', JSON.stringify(msg));
+                        //console.log('Message received:', JSON.stringify(msg));
 
                         // Display the message in the webpage
                         const messagesDiv = document.getElementById('messages');
@@ -58,10 +58,23 @@
 
 				<main id="main">
                 </main>
-                <div id="messages"></div>
+                <div id="messages" style="font-size:8px;"></div>
 
                 <br clear="all" />
 			<?php
+		}
+
+
+        /* ********************************************************
+         * ********************************************************
+         * ********************************************************/
+        public function displayFooter() {
+        }
+
+        /* ********************************************************
+         * ********************************************************
+         * ********************************************************/
+        public function displayLogs() {
 		}
 
     }
