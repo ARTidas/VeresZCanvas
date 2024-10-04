@@ -60,6 +60,8 @@
     require(RequestHelper::$file_root . '/views/message_queue_view_view.php');
     require(RequestHelper::$file_root . '/views/message_queue_get_view.php');
     require(RequestHelper::$file_root . '/views/message_queue_mqtt_view.php');
+    require(RequestHelper::$file_root . '/views/message_queue_simulation_view.php');
     require(RequestHelper::$file_root . '/views/sensor_display_view.php');
+    require(RequestHelper::$file_root . '/views/sensor_display_2_view.php');
 
 ?>

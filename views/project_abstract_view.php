@@ -56,6 +56,7 @@
                             <button>Sensor</button>
                             <div>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display#main">Display</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_2#main">Display V2</a>
                             </div>
                         </div>
 
@@ -65,6 +66,7 @@
                                 <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/view">View</a>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/get">Get</a>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/mqtt">MQTT</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/simulation">Simulation</a>
                             </div>
                         </div>
 
