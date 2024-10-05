@@ -47,7 +47,7 @@
                         const messagesDiv = document.getElementById('messages');
                         messagesDiv.innerHTML = `<p>Topic: ${topic}, Message: ${JSON.stringify(msg)}</p>`;
 
-                        updateSensorData(msg.pitch, msg.roll, msg.yaw);
+                        updateSensorData(msg.pitch, msg.roll, msg.yaw, msg.distance);
                     });
 
                     // Handle errors

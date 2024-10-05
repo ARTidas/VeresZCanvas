@@ -33,7 +33,7 @@
                     let currentYaw = 0;
 
                     // Set the maximum change in degrees for each rotation per step
-                    const maxRotationDegree = 5;  // Max change of 5 degrees per step
+                    const maxRotationDegree = 1;  // Max change of 5 degrees per step
 
                     client.on('connect', function () {
                         console.log('Connected for simulation');
@@ -61,6 +61,7 @@
                                     pitch: currentPitch.toFixed(2),
                                     roll: currentRoll.toFixed(2),
                                     yaw: currentYaw.toFixed(2),
+                                    distance: 1500.00,
                                     timestamp: new Date().toISOString()
                                 });
 
