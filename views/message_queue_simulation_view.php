@@ -48,14 +48,25 @@
                         if (!simulationInterval) {
                             simulationInterval = setInterval(() => {
                                 // Generate random changes within the maxRotationDegree limit
-                                const pitchChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
+                                /*const pitchChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
                                 const rollChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
-                                const yawChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
+                                const yawChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);*/
+                                let max = 3;
+                                let min = 0;
+                                const pitchChange = Math.random() * (max - min) + min;
+                                const rollChange = Math.random() * (max - min) + min;
+                                const yawChange = Math.random() * (max - min) + min;
 
                                 // Update current values
-                                currentPitch = (parseFloat(currentPitch) + parseFloat(pitchChange)) % 360;
+                                /*currentPitch = (parseFloat(currentPitch) + parseFloat(pitchChange)) % 360;
                                 currentRoll = (parseFloat(currentRoll) + parseFloat(rollChange)) % 360;
-                                currentYaw = (parseFloat(currentYaw) + parseFloat(yawChange)) % 360;
+                                currentYaw = (parseFloat(currentYaw) + parseFloat(yawChange)) % 360;*/
+                                currentPitch += pitchChange * (Math.PI / 180);
+                                currentRoll += rollChange * (Math.PI / 180);
+                                currentYaw += yawChange * (Math.PI / 180);
+                                /*currentPitch += (Math.PI / 180);
+                                currentRoll += (Math.PI / 180);
+                                currentYaw += (Math.PI / 180);*/
 
                                 const simulatedMessage = JSON.stringify({
                                     pitch: currentPitch.toFixed(2),

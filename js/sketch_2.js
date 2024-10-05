@@ -110,39 +110,6 @@ function drawPointer() {
     pop();  // Restore the previous transformation state (ensuring axes aren't affected)
 }
 
-// Rotate a vector by pitch, yaw, and roll
-function rotateVector(v, pitch, yaw, roll) {
-    let x = v.x;
-    let y = v.y;
-    let z = v.z;
-
-    // Apply pitch rotation (rotation around X axis)
-    let cosPitch = cos(pitch);
-    let sinPitch = sin(pitch);
-    let y1 = y * cosPitch - z * sinPitch;
-    let z1 = y * sinPitch + z * cosPitch;
-    y = y1;
-    z = z1;
-
-    // Apply yaw rotation (rotation around Y axis)
-    let cosYaw = cos(yaw);
-    let sinYaw = sin(yaw);
-    let x1 = x * cosYaw + z * sinYaw;
-    z1 = -x * sinYaw + z * cosYaw;
-    x = x1;
-    z = z1;
-
-    // Apply roll rotation (rotation around Z axis)
-    let cosRoll = cos(roll);
-    let sinRoll = sin(roll);
-    let x2 = x * cosRoll - y * sinRoll;
-    let y2 = x * sinRoll + y * cosRoll;
-    x = x2;
-    y = y2;
-
-    return createVector(x, y, z);
-}
-
 function drawAxes() {
     strokeWeight(10); // Set line thickness
 
@@ -168,7 +135,7 @@ function drawConeAtEnd(x, y, z) {
     if (x != 0) rotateZ(-HALF_PI);
     if (y != 0) rotateY(-HALF_PI);
     if (z != 0) rotateX(HALF_PI);
-    fill(0); // Cone color
+    fill(0, 0, 0); // Cone color
     cone(20, 60, 8); // Draw cone (radius, height, detail)
     pop(); // Restore the previous transformation state
 }
@@ -176,10 +143,22 @@ function drawConeAtEnd(x, y, z) {
 // Draw spheres along the path of the line's endpoint
 function drawPath() {
     for (let i = 0; i < path.length; i++) {
-        let p = path[i];
+        let pointOrientation = path[i];
         push();
-        translate(p.x, p.y, p.z);
-        fill(255, 0, 0); // Red spheres
+
+        // Apply initial orientation (fixed rotation)
+        rotateX(initialPitch);
+        rotateY(initialYaw);
+        rotateZ(initialRoll);
+        
+        // Apply sensor-based rotation (dynamic orientation)
+        rotateX(pointOrientation.Pitch);
+        rotateY(pointOrientation.Roll);
+        rotateZ(pointOrientation.Yaw);
+
+        translate(0, pointOrientation.Distance, 0);
+
+        stroke(150, 0, 0);
         sphere(10); // Small sphere to represent the point
         pop();
     }
@@ -209,17 +188,8 @@ function updateSensorData(newPitch, newRoll, newYaw, newDistance) {
     // Update the distance value
     currentDistance = newDistance;
 
-    // Calculate the endpoint of the line (top of the cone, taking into account rotations)
-    let endX = 0;
-    let endY = currentDistance;
-    let endZ = 0;
-
-    // Apply the rotations to the end point
-    let p = createVector(endX, endY, endZ);
-    p = rotateVector(p, newPitch, newYaw, newRoll);
-
-    // Add the transformed point to the path array
-    path.push(p);
+    let pointOrientation = {'Pitch': newPitch, 'Roll': newRoll, 'Yaw': newYaw, 'Distance': newDistance};
+    path.push(pointOrientation);
 }
 
 function windowResized() {
