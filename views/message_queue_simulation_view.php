@@ -52,7 +52,7 @@
                                 const rollChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);
                                 const yawChange = (Math.random() * maxRotationDegree * 2 - maxRotationDegree).toFixed(2);*/
                                 let max = 3;
-                                let min = 0;
+                                let min = -3;
                                 const pitchChange = Math.random() * (max - min) + min;
                                 const rollChange = Math.random() * (max - min) + min;
                                 const yawChange = Math.random() * (max - min) + min;
@@ -78,7 +78,7 @@
 
                                 client.publish('VeresZLidar', simulatedMessage);
                                 //console.log('Simulated message sent:', simulatedMessage);
-                            }, 1000);
+                            }, 100);
 
                             document.getElementById('startBtn').disabled = true;
                             document.getElementById('stopBtn').disabled = false;

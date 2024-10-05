@@ -38,7 +38,7 @@ function setup() {
 
     // Set the initial camera angles
     camAngleX = PI + (PI / 4); // Rotate 45 degrees horizontally
-    camAngleY = PI / 4; // Tilt the camera 45 degrees upwards
+    camAngleY = (PI / 4) - (PI / 180 * 30); // Tilt the camera 45 degrees upwards
 
     textFont(font); // Set the loaded font
 }
@@ -105,7 +105,7 @@ function drawPointer() {
     cone(50, 100, 8); // Draw the cone
 
     // Draw the line extending from the top of the cone
-    line(0, 50, 0, 0, currentDistance, 0);  // Line extending from the cone
+    line(0, 0, 0, 0, currentDistance, 0);  // Line extending from the cone
 
     pop();  // Restore the previous transformation state (ensuring axes aren't affected)
 }
@@ -153,13 +153,14 @@ function drawPath() {
         
         // Apply sensor-based rotation (dynamic orientation)
         rotateX(pointOrientation.Pitch);
-        rotateY(pointOrientation.Roll);
-        rotateZ(pointOrientation.Yaw);
+        rotateY(pointOrientation.Yaw);
+        rotateZ(pointOrientation.Roll);
 
         translate(0, pointOrientation.Distance, 0);
 
         stroke(150, 0, 0);
         sphere(10); // Small sphere to represent the point
+
         pop();
     }
 }
