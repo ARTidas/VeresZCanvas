@@ -1,3 +1,4 @@
+let CanvasClass = new Canvas;
 let canvas;
 
 let pitch = 0;
@@ -41,6 +42,10 @@ function setup() {
     camAngleY = (PI / 4) - (PI / 180 * 30); // Tilt the camera 45 degrees upwards
 
     textFont(font); // Set the loaded font
+
+    // Get the button from the HTML and add an event listener
+    let saveButton = document.getElementById('save-btn');
+    saveButton.addEventListener('click', CanvasClass.saveImage);
 }
 
 function draw() {

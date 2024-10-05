@@ -56,8 +56,8 @@
                     });
                 </script>
 
-				<main id="main">
-                </main>
+				<main id="main"></main>
+                <button id="save-btn">Save Image</button>
                 <div id="messages" style="font-size:8px;"></div>
 
                 <br clear="all" />

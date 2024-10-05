@@ -18,4 +18,8 @@ class Canvas extends Genesys {
     getHeight() {
         return window.innerHeight * 0.75;
     };
+
+    saveImage() {
+        saveCanvas('VeresZLidar_' + (new Date()).toISOString(), 'jpg');
+    }
 }
