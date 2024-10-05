@@ -16,10 +16,6 @@ let isDragging = false; // Track if the user is dragging the mouse
 let previousMouseX = 0;
 let previousMouseY = 0;
 
-let initialPitch = 0;  // Set an initial pitch angle (in radians)
-let initialYaw = 0;    // Set an initial yaw angle (e.g., 90 degrees rotation)
-let initialRoll = 0;   // Set an initial roll angle (in radians)
-
 let axisLength = 2500; // Length of the axes
 let currentDistance = 1500; // Default distance value
 
@@ -93,11 +89,6 @@ function draw() {
 function drawPointer() {
     push();  // Save the current transformation state
 
-    // Apply initial orientation (fixed rotation)
-    rotateX(initialPitch);
-    rotateY(initialYaw);
-    rotateZ(initialRoll);
-
     // Apply sensor-based rotation (dynamic orientation)
     rotateX(pitch);
     rotateY(yaw);
@@ -150,11 +141,6 @@ function drawPath() {
     for (let i = 0; i < path.length; i++) {
         let pointOrientation = path[i];
         push();
-
-        // Apply initial orientation (fixed rotation)
-        rotateX(initialPitch);
-        rotateY(initialYaw);
-        rotateZ(initialRoll);
         
         // Apply sensor-based rotation (dynamic orientation)
         rotateX(pointOrientation.Pitch);
