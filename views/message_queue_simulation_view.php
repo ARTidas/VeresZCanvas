@@ -78,7 +78,7 @@
 
                                 client.publish('VeresZLidar', simulatedMessage);
                                 //console.log('Simulated message sent:', simulatedMessage);
-                            }, 1000);
+                            }, 100);
 
                             document.getElementById('startBtn').disabled = true;
                             document.getElementById('stopBtn').disabled = false;

@@ -55,8 +55,9 @@
                         <div>
                             <button>Sensor</button>
                             <div>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display#main">Display</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display#main">Display V1</a>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_2#main">Display V2</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_3#main">Display V3</a>
                             </div>
                         </div>
 
