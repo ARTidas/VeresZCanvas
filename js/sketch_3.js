@@ -5,6 +5,10 @@ let pitch = 0;
 let roll = 0;
 let yaw = 0;
 
+let pointerX = 0; // Store the pointer's current position
+let pointerY = 0;
+let pointerZ = 0;
+
 let targetPitch = 0;
 let targetRoll = 0;
 let targetYaw = 0;
@@ -94,6 +98,9 @@ function drawPointer() {
     rotateY(yaw);
     rotateZ(roll);
 
+    // Move the pointer based on position input
+    translate(pointerX, pointerY, pointerZ); // Use updated position for movement
+
     // Draw the cone representing the pointer
     stroke(0, 0, 0);  // Set the line color
     strokeWeight(5);        // Set line thickness
@@ -139,15 +146,17 @@ function drawConeAtEnd(x, y, z) {
 // Draw spheres along the path of the line's endpoint
 function drawPath() {
     for (let i = 0; i < path.length; i++) {
-        let pointOrientation = path[i];
+        let point = path[i];
         push();
         
         // Apply sensor-based rotation (dynamic orientation)
-        rotateX(pointOrientation.Pitch);
-        rotateY(pointOrientation.Yaw);
-        rotateZ(pointOrientation.Roll);
+        rotateX(point.Orientation.Pitch);
+        rotateY(point.Orientation.Yaw);
+        rotateZ(point.Orientation.Roll);
 
-        translate(0, pointOrientation.Distance, 0);
+        translate(0, point.Distance, 0);
+        // Move the pointer based on position input
+        translate(pointerX, pointerY, pointerZ); // Use updated position for movement
 
         stroke(150, 0, 0);
         sphere(10); // Small sphere to represent the point
@@ -171,17 +180,39 @@ function mouseWheel(event) {
 }
 
 // Update the sensor data and add the transformed point to the path
-function updateSensorData(newPitch, newRoll, newYaw, newDistance) {
+function updateSensorData(
+    newOrientationPitch, newOrientationRoll, newOrientationYaw,
+    newPositionX, newPositionY, newPositionZ,
+    newDistance
+) {
     // Update target orientation
-    targetPitch = newPitch;
-    targetRoll = newRoll;
-    targetYaw = newYaw;
+    targetPitch = newOrientationPitch;
+    targetRoll = newOrientationRoll;
+    targetYaw = newOrientationYaw;
 
     // Update the distance value
     currentDistance = newDistance;
 
-    let pointOrientation = {'Pitch': newPitch, 'Roll': newRoll, 'Yaw': newYaw, 'Distance': newDistance};
-    path.push(pointOrientation);
+    // Convert position updates from the sensor to movement of the pointer
+    pointerX = newPositionX * 10; // Scale position changes (adjust scaling factor as needed)
+    pointerY = newPositionY * 10;
+    pointerZ = newPositionZ * 10;
+
+    let point = {
+        'Orientation': {
+            'Pitch': newOrientationPitch,
+            'Roll': newOrientationRoll,
+            'Yaw': newOrientationYaw
+        },
+        'Position': {
+            'X': newPositionX,
+            'Y': newPositionY,
+            'Z': newPositionZ
+        },
+        'Distance': newDistance
+    };
+
+    path.push(point);
 }
 
 function windowResized() {

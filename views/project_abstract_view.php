@@ -67,7 +67,8 @@
                                 <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/view">View</a>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/get">Get</a>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/mqtt">MQTT</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/simulation">Simulation</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/simulation_2">Simulation V2</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/simulation_3">Simulation V3</a>
                             </div>
                         </div>
 

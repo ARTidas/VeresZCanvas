@@ -29,8 +29,8 @@
                     client.on('connect', function () {
                         console.log('Connected to MQTT broker via WebSocket');
 
-                        // Subscribe to the 'VeresZLidar' topic
-                        client.subscribe('VeresZLidar', function (err) {
+                        // Subscribe to the 'VeresZLidar_3' topic
+                        client.subscribe('VeresZLidar_V3', function (err) {
                             if (!err) {
                                 console.log('Subscribed to VeresZLidar');
                             }
@@ -47,7 +47,15 @@
                         const messagesDiv = document.getElementById('messages');
                         messagesDiv.innerHTML = `<p>Topic: ${topic}, Message: ${JSON.stringify(msg)}</p>`;
 
-                        updateSensorData(msg.pitch, msg.roll, msg.yaw, msg.distance);
+                        updateSensorData(
+                            msg.orientation.pitch,
+                            msg.orientation.roll,
+                            msg.orientation.yaw,
+                            msg.position.x,
+                            msg.position.y,
+                            msg.position.z,
+                            msg.distance
+                        );
                     });
 
                     // Handle errors
