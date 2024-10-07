@@ -77,8 +77,8 @@
                                     timestamp: new Date().toISOString()
                                 });
 
-                                client.publish('VeresZLidar_V3', simulatedMessage);
-                                //console.log('Simulated message sent:', simulatedMessage);
+                                client.publish('VeresZLidar_3', simulatedMessage);
+                                console.log('Simulated message sent:', simulatedMessage);
                             }, 1000);
 
                             document.getElementById('startBtn').disabled = true;

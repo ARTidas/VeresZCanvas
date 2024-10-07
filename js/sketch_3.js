@@ -154,9 +154,10 @@ function drawPath() {
         rotateY(point.Orientation.Yaw);
         rotateZ(point.Orientation.Roll);
 
-        translate(0, point.Distance, 0);
+        //translate(0, point.Distance, 0);
         // Move the pointer based on position input
-        translate(pointerX, pointerY, pointerZ); // Use updated position for movement
+        //translate(pointerX, pointerY, pointerZ); // Use updated position for movement
+        translate(pointerX, pointerY + point.Distance, pointerZ);
 
         stroke(150, 0, 0);
         sphere(10); // Small sphere to represent the point

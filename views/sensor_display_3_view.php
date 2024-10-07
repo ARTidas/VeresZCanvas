@@ -30,7 +30,7 @@
                         console.log('Connected to MQTT broker via WebSocket');
 
                         // Subscribe to the 'VeresZLidar_3' topic
-                        client.subscribe('VeresZLidar_V3', function (err) {
+                        client.subscribe('VeresZLidar_3', function (err) {
                             if (!err) {
                                 console.log('Subscribed to VeresZLidar');
                             }
