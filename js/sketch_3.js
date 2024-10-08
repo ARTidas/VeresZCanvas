@@ -13,7 +13,7 @@ let targetPitch = 0;
 let targetRoll = 0;
 let targetYaw = 0;
 
-let camRadius = 2500; // Starting distance of the camera from the object
+let camRadius = 2200; // Starting distance of the camera from the object
 let camAngleX = 0;   // Horizontal angle around the object
 let camAngleY = 0;   // Vertical angle around the object
 let isDragging = false; // Track if the user is dragging the mouse
@@ -33,13 +33,17 @@ function preload() {
 }
 
 function setup() {
+    angleMode(DEGREES);
+
     canvas = createCanvas(windowWidth - 26, windowHeight - 250, WEBGL); // Create a full-window 3D canvas
     canvas.mousePressed(startDrag);  // Start drag on mouse press
     canvas.mouseReleased(stopDrag);  // Stop drag on mouse release
 
     // Set the initial camera angles
-    camAngleX = PI + (PI / 4); // Rotate 45 degrees horizontally
-    camAngleY = (PI / 4) - (PI / 180 * 30); // Tilt the camera 45 degrees upwards
+    /*camAngleX = PI + (PI / 4); // Rotate 45 degrees horizontally
+    camAngleY = (PI / 4) - (PI / 180 * 30); // Tilt the camera 45 degrees upwards*/
+    camAngleX = 225;
+    camAngleY = 45;
 
     textFont(font); // Set the loaded font
 
@@ -78,11 +82,14 @@ function draw() {
         let deltaX = mouseX - previousMouseX;
         let deltaY = mouseY - previousMouseY;
 
-        camAngleX += deltaX * 0.01; // Horizontal rotation control
-        camAngleY -= deltaY * 0.01; // Vertical rotation control
+        /*camAngleX += deltaX * 0.01; // Horizontal rotation control
+        camAngleY -= deltaY * 0.01; // Vertical rotation control*/
+        camAngleX += deltaX * 0.1;
+        camAngleY -= deltaY * 0.1;
 
         // Limit the vertical angle to avoid flipping the camera upside down
-        camAngleY = constrain(camAngleY, -PI / 2, PI / 2);
+        //camAngleY = constrain(camAngleY, -PI / 2, PI / 2);
+        camAngleY = constrain(camAngleY, -180, 180);
 
         previousMouseX = mouseX;
         previousMouseY = mouseY;
@@ -94,6 +101,9 @@ function drawPointer() {
     push();  // Save the current transformation state
 
     // Apply sensor-based rotation (dynamic orientation)
+    /*rotateX(radians(pitch)); // Convert to radians
+    rotateY(radians(yaw)); // Convert to radians
+    rotateZ(radians(roll)); // Convert to radians*/
     rotateX(pitch);
     rotateY(yaw);
     rotateZ(roll);
@@ -108,7 +118,7 @@ function drawPointer() {
     cone(50, 100, 8); // Draw the cone
 
     // Draw the line extending from the top of the cone
-    line(0, 0, 0, 0, currentDistance, 0);  // Line extending from the cone
+    line(0, 0, 0, 0, currentDistance, 0);
 
     pop();  // Restore the previous transformation state (ensuring axes aren't affected)
 }
@@ -135,9 +145,12 @@ function drawAxes() {
 function drawConeAtEnd(x, y, z) {
     push(); // Save the current transformation state
     translate(x, y, z); // Move to the cone position
-    if (x != 0) rotateZ(-HALF_PI);
+    /*if (x != 0) rotateZ(-HALF_PI);
     if (y != 0) rotateY(-HALF_PI);
-    if (z != 0) rotateX(HALF_PI);
+    if (z != 0) rotateX(HALF_PI);*/
+    if (x != 0) rotateZ(-90);
+    if (y != 0) rotateY(-90);
+    if (z != 0) rotateX(90);
     fill(0, 0, 0); // Cone color
     cone(20, 60, 8); // Draw cone (radius, height, detail)
     pop(); // Restore the previous transformation state
@@ -149,14 +162,15 @@ function drawPath() {
         let point = path[i];
         push();
         
-        // Apply sensor-based rotation (dynamic orientation)
+        // Apply sensor-based rotation (convert degrees to radians)
+        /*rotateX(radians(point.Orientation.Pitch));
+        rotateY(radians(point.Orientation.Yaw));
+        rotateZ(radians(point.Orientation.Roll));*/
         rotateX(point.Orientation.Pitch);
         rotateY(point.Orientation.Yaw);
         rotateZ(point.Orientation.Roll);
 
-        //translate(0, point.Distance, 0);
         // Move the pointer based on position input
-        //translate(pointerX, pointerY, pointerZ); // Use updated position for movement
         translate(pointerX, pointerY + point.Distance, pointerZ);
 
         stroke(150, 0, 0);
@@ -186,7 +200,7 @@ function updateSensorData(
     newPositionX, newPositionY, newPositionZ,
     newDistance
 ) {
-    // Update target orientation
+    // Update target orientation (still in degrees)
     targetPitch = newOrientationPitch;
     targetRoll = newOrientationRoll;
     targetYaw = newOrientationYaw;
@@ -212,6 +226,9 @@ function updateSensorData(
         },
         'Distance': newDistance
     };
+
+    //This prints an object with YPR (Yaw-Pitch-Roll) values in the -180 and 180 interval.
+    //console.log(point);
 
     path.push(point);
 }

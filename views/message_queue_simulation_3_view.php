@@ -1,18 +1,11 @@
 <?php
 
-	/* ********************************************************
-	 * ********************************************************
-	 * ********************************************************/
-	class MessageQueueSimulation3View extends ProjectAbstractView {
+    class MessageQueueSimulation3View extends ProjectAbstractView {
 
-        /* ********************************************************
-         * ********************************************************
-         * ********************************************************/
         public function displayContent() {
             ?>
                 <script src="<?php print(RequestHelper::$common_url_root); ?>/js/MQTT/mqtt.js"></script>
 
-                
                 <button id="startBtn">Start Simulation</button>
                 <button id="stopBtn" disabled>Stop Simulation</button>
                 <div id="messages"></div>
@@ -26,17 +19,12 @@
 
                     const client = mqtt.connect(broker, options);
                     let simulationInterval = null;
-
-                    // Variables to hold current orientation
-                    let orientationPitch = 0;
-                    let orientationRoll = 0;
-                    let orientationYaw = 0;
-                    let positionX = 0;
-                    let positionY = 0;
-                    let positionZ = 0;
+                    let pitch = -180;
+                    let roll = -180;
+                    let yaw = -180;
 
                     client.on('connect', function () {
-                        console.log('Connected for simulation');
+                        console.log('Connected to the MQTT broker for simulation');
                     });
 
                     client.on('error', function (err) {
@@ -46,43 +34,49 @@
                     // Start Simulation Function
                     function startSimulation() {
                         if (!simulationInterval) {
-                            simulationInterval = setInterval(() => {
-
-                                let max = 3;
-                                let min = -3;
-                                const pitchChange = Math.random() * (max - min) + min;
-                                const rollChange = Math.random() * (max - min) + min;
-                                const yawChange = Math.random() * (max - min) + min;
-
-                                // Update current values
-                                orientationPitch += pitchChange * (Math.PI / 180);
-                                orientationRoll += rollChange * (Math.PI / 180);
-                                orientationYaw += yawChange * (Math.PI / 180);
-                                positionX += pitchChange;
-                                positionY += rollChange;
-                                positionZ += yawChange;
-
-                                const simulatedMessage = JSON.stringify({
-                                    orientation: {
-                                        pitch: orientationPitch.toFixed(2),
-                                        roll: orientationRoll.toFixed(2),
-                                        yaw: orientationYaw.toFixed(2),
-                                    },
-                                    position: {
-                                        x: positionX.toFixed(2),
-                                        y: positionY.toFixed(2),
-                                        z: positionZ.toFixed(2),
-                                    },
-                                    distance: 1500.00,
-                                    timestamp: new Date().toISOString()
-                                });
-
-                                client.publish('VeresZLidar_3', simulatedMessage);
-                                console.log('Simulated message sent:', simulatedMessage);
-                            }, 1000);
+                            simulationInterval = setInterval(simulateTelemetryData, 100); // Send data every 100ms
 
                             document.getElementById('startBtn').disabled = true;
                             document.getElementById('stopBtn').disabled = false;
+                        }
+                    }
+
+                    // Simulate telemetry data
+                    function simulateTelemetryData() {
+                        // Create the telemetry message
+                        const simulatedMessage = JSON.stringify({
+                            orientation: {
+                                pitch: pitch.toFixed(2),
+                                roll: roll.toFixed(2),
+                                yaw: yaw.toFixed(2),
+                            },
+                            position: {
+                                x: "0.00",
+                                y: "0.00",
+                                z: "0.00",
+                            },
+                            distance: 600.00,
+                            timestamp: new Date().toISOString(),
+                        });
+
+                        // Publish the telemetry message to the MQTT server
+                        client.publish('VeresZLidar_3', simulatedMessage);
+                        console.log('Simulated message sent:', simulatedMessage);
+                        
+                        // Increment the yaw first, then roll, then pitch
+                        yaw += 10;
+                        if (yaw > 180) {
+                            yaw = -180;
+                            roll += 10;
+                        }
+
+                        if (roll > 180) {
+                            roll = -180;
+                            pitch += 10;
+                        }
+
+                        if (pitch > 180) {
+                            stopSimulation(); // Stop when pitch reaches 180
                         }
                     }
 
@@ -94,6 +88,11 @@
 
                             document.getElementById('startBtn').disabled = false;
                             document.getElementById('stopBtn').disabled = true;
+
+                            // Reset pitch, roll, yaw values for next start
+                            pitch = -180;
+                            roll = -180;
+                            yaw = -180;
                         }
                     }
 
@@ -103,7 +102,7 @@
                 </script>
 
             <?php
-		}
+        }
 
     }
 

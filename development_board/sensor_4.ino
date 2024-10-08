@@ -107,6 +107,12 @@ void loop() {
     ypr[0] *= 180.0 / M_PI;  // yaw
     ypr[1] *= 180.0 / M_PI;  // pitch
     ypr[2] *= 180.0 / M_PI;  // roll
+    /*ypr[0] *= 180.0 / M_PI + 180;  // yaw
+    ypr[1] *= 180.0 / M_PI + 180;  // pitch
+    ypr[2] *= 180.0 / M_PI + 180;  // roll*/
+    /*ypr[0] *= 180.0 / M_PI;  // yaw
+    ypr[1] *= 180.0 / M_PI;  // pitch
+    ypr[2] *= 180.0 / M_PI;  // roll*/
 
     // Publish data at intervals
     unsigned long currentTime = millis();
