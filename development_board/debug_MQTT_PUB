@@ -1,0 +1,46 @@
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"10.00\",\"pitch\": \"0.00\",\"roll\": \"0.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"10.00\",\"roll\": \"0.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"-10.00\",\"roll\": \"0.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"0.00\",\"roll\": \"10.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"0.00\",\"roll\": \"-10.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"20.00\",\"roll\": \"0.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"-90.00\",\"roll\": \"0.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"-120.00\",\"roll\": \"0.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"0.00\",\"pitch\": \"-120.00\",\"roll\": \"0.00\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": \"600.00\",\"timestamp\": \"400\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+
+
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"124.64\",\"pitch\": \"179.58\",\"roll\": \"-156.57\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"29855\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"125.80\",\"pitch\": \"-173.93\",\"roll\": \"-162.92\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"34857\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m "{\"orientation\": {\"yaw\": \"125.10\",\"pitch\": \"-178.73\",\"roll\": \"-162.65\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"32857\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+
+
+mosquitto_pub -h pti.unithe.hu -p 11883 -t "VeresZLidar_3" -m  "{\"orientation\": {\"yaw\": \"85.82\",\"pitch\": \"4.34\",\"roll\": \"-3.41\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"49862\"}" -u "VeresZLidar" -P "bolcseszmernok1"
+
+
+{\"orientation\": {\"yaw\": \"85.82\",\"pitch\": \"4.34\",\"roll\": \"-3.41\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"49862\"}
+{\"orientation\": {\"yaw\": \"86.32\",\"pitch\": \"4.51\",\"roll\": \"-3.29\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"50863\"}
+{\"orientation\": {\"yaw\": \"86.59\",\"pitch\": \"4.64\",\"roll\": \"-3.26\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"51863\"}
+
+{\"orientation\": {\"yaw\": \"124.54\",\"pitch\": \"-179.76\",\"roll\": \"-160.67\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"30855\"}
+{\"orientation\": {\"yaw\": \"124.78\",\"pitch\": \"-179.04\",\"roll\": \"-161.91\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"31856\"}
+{\"orientation\": {\"yaw\": \"125.10\",\"pitch\": \"-178.73\",\"roll\": \"-162.65\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"32857\"}
+{\"orientation\": {\"yaw\": \"125.49\",\"pitch\": \"-178.39\",\"roll\": \"-162.38\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"33857\"}
+{\"orientation\": {\"yaw\": \"125.80\",\"pitch\": \"-173.93\",\"roll\": \"-162.92\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"34857\"}
+{\"orientation\": {\"yaw\": \"126.47\",\"pitch\": \"-173.20\",\"roll\": \"-163.55\"},\"position\": {\"x\": \"0.00\",\"y\": \"0.00\",\"z\": \"0.00\"},\"distance\": 600.00,\"timestamp\": \"35858\"}
+

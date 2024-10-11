@@ -1,3 +1,6 @@
+/* ********************************************************
+ * *** Variables setup ************************************
+ * ********************************************************/
 let CanvasClass = new Canvas;
 let canvas;
 
@@ -13,9 +16,9 @@ let targetPitch = 0;
 let targetRoll = 0;
 let targetYaw = 0;
 
-let camRadius = 2200; // Starting distance of the camera from the object
-let camAngleX = 0;   // Horizontal angle around the object
-let camAngleY = 0;   // Vertical angle around the object
+let camRadius = 1700; // Starting distance of the camera from the object
+let camAngleX = 225;   // Horizontal angle around the object
+let camAngleY = 50;   // Vertical angle around the object
 let isDragging = false; // Track if the user is dragging the mouse
 let previousMouseX = 0;
 let previousMouseY = 0;
@@ -26,24 +29,18 @@ let currentDistance = 1500; // Default distance value
 let font; // To store the font
 
 let path = []; // Array to store the coordinates
+let path_point_radius = 10;
+let path_point_threshold = path_point_radius;
 
-// Preload the font before the sketch starts
-function preload() {
-    font = loadFont('https://pti.unithe.hu:8443/common/cdn/design/fonts/roboto_mono/RobotoMono-Regular.ttf');
-}
-
+/* ********************************************************
+ * *** Setup **********************************************
+ * ********************************************************/
 function setup() {
     angleMode(DEGREES);
 
     canvas = createCanvas(windowWidth - 26, windowHeight - 250, WEBGL); // Create a full-window 3D canvas
     canvas.mousePressed(startDrag);  // Start drag on mouse press
     canvas.mouseReleased(stopDrag);  // Stop drag on mouse release
-
-    // Set the initial camera angles
-    /*camAngleX = PI + (PI / 4); // Rotate 45 degrees horizontally
-    camAngleY = (PI / 4) - (PI / 180 * 30); // Tilt the camera 45 degrees upwards*/
-    camAngleX = 225;
-    camAngleY = 45;
 
     textFont(font); // Set the loaded font
 
@@ -52,6 +49,9 @@ function setup() {
     saveButton.addEventListener('click', CanvasClass.saveImage);
 }
 
+/* ********************************************************
+ * *** MAIN LOOPING FUNCTION ******************************
+ * ********************************************************/
 function draw() {
     background(200);
 
@@ -82,14 +82,11 @@ function draw() {
         let deltaX = mouseX - previousMouseX;
         let deltaY = mouseY - previousMouseY;
 
-        /*camAngleX += deltaX * 0.01; // Horizontal rotation control
-        camAngleY -= deltaY * 0.01; // Vertical rotation control*/
         camAngleX += deltaX * 0.1;
         camAngleY -= deltaY * 0.1;
 
         // Limit the vertical angle to avoid flipping the camera upside down
-        //camAngleY = constrain(camAngleY, -PI / 2, PI / 2);
-        camAngleY = constrain(camAngleY, -180, 180);
+        camAngleY = constrain(camAngleY, -90, 90);
 
         previousMouseX = mouseX;
         previousMouseY = mouseY;
@@ -100,10 +97,16 @@ function draw() {
 function drawPointer() {
     push();  // Save the current transformation state
 
-    // Apply sensor-based rotation (dynamic orientation)
-    /*rotateX(radians(pitch)); // Convert to radians
-    rotateY(radians(yaw)); // Convert to radians
-    rotateZ(radians(roll)); // Convert to radians*/
+    // TODO: I am still not cinvinced that this is the correct method to make the YAW looking upward...
+    // TODO: Roll 10 degrees is shown on the negative pitch...
+    // TODO: Quick solution would be to rotate 90 degrees clockwise the whole thing.
+    /*rotateY(90);
+    rotateX(pitch);
+    rotateY(yaw);
+    rotateZ(roll);*/
+    /*rotateX(pitch);
+    rotateY(roll);
+    rotateZ(yaw);*/
     rotateX(pitch);
     rotateY(yaw);
     rotateZ(roll);
@@ -123,6 +126,89 @@ function drawPointer() {
     pop();  // Restore the previous transformation state (ensuring axes aren't affected)
 }
 
+// Draw spheres along the path of the line's endpoint
+function drawPath() {
+    for (let i = 0; i < path.length; i++) {
+        let point = path[i];
+        push();
+
+        // Apply sensor-based rotation (convert degrees to radians)
+        /*rotateX(point.Orientation.Pitch);
+        rotateY(point.Orientation.Yaw);
+        rotateZ(point.Orientation.Roll);*/
+
+        // Move the pointer based on position input
+        //translate(point.Position.X, point.Position.Y + point.Distance, point.Position.Z);
+        translate(point.Position.X, point.Position.Y, point.Position.Z);
+
+        stroke(150, 0, 0);
+        sphere(path_point_radius); // Small sphere to represent the point
+
+        pop();
+    }
+}
+
+
+
+/* ********************************************************
+ * *** The function which handles telemetry data stream ***
+ * ********************************************************/
+function updateSensorData( // Update the sensor data and add the transformed point to the path
+    newOrientationPitch, newOrientationRoll, newOrientationYaw,
+    newPositionX, newPositionY, newPositionZ,
+    newDistance
+) {
+    // Display
+    document.getElementById('messages').innerHTML = `
+        <p>
+            Pitch: <strong>${newOrientationPitch}</strong>, 
+            Roll: <strong>${newOrientationRoll}</strong>,
+            Yaw: <strong>${newOrientationYaw}</strong>,
+        </p>
+    `;
+
+    // Update target orientation (still in degrees)
+    targetPitch = newOrientationPitch;
+    targetRoll = newOrientationRoll;
+    targetYaw = newOrientationYaw;
+
+    // Update the distance value
+    currentDistance = newDistance;
+
+    // Convert position updates from the sensor to movement of the pointer
+    pointerX = newPositionX; // Scale position changes (adjust scaling factor as needed)
+    pointerY = newPositionY;
+    pointerZ = newPositionZ;
+
+
+    let point = CanvasClass.getPointFromYPRD(
+        newOrientationPitch, newOrientationRoll, newOrientationYaw,
+        newPositionX, newPositionY, newPositionZ,
+        newDistance
+    );
+
+    // Check if the new point is "touching" an existing point in the path array
+    let isTouching = path.some(existingPoint => {
+        let distance = dist(
+            existingPoint.Position.X, existingPoint.Position.Y, existingPoint.Position.Z,
+            point.Position.X, point.Position.Y, point.Position.Z
+        );
+        return distance < path_point_threshold;
+    });
+
+    // If the new point is not "touching" any existing points, add it to the path
+    if (!isTouching) {
+        path.push(point);
+    }
+}
+
+
+
+
+
+/* ********************************************************
+ * *** Axes ***********************************************
+ * ********************************************************/
 function drawAxes() {
     strokeWeight(10); // Set line thickness
 
@@ -145,9 +231,6 @@ function drawAxes() {
 function drawConeAtEnd(x, y, z) {
     push(); // Save the current transformation state
     translate(x, y, z); // Move to the cone position
-    /*if (x != 0) rotateZ(-HALF_PI);
-    if (y != 0) rotateY(-HALF_PI);
-    if (z != 0) rotateX(HALF_PI);*/
     if (x != 0) rotateZ(-90);
     if (y != 0) rotateY(-90);
     if (z != 0) rotateX(90);
@@ -156,28 +239,14 @@ function drawConeAtEnd(x, y, z) {
     pop(); // Restore the previous transformation state
 }
 
-// Draw spheres along the path of the line's endpoint
-function drawPath() {
-    for (let i = 0; i < path.length; i++) {
-        let point = path[i];
-        push();
-        
-        // Apply sensor-based rotation (convert degrees to radians)
-        /*rotateX(radians(point.Orientation.Pitch));
-        rotateY(radians(point.Orientation.Yaw));
-        rotateZ(radians(point.Orientation.Roll));*/
-        rotateX(point.Orientation.Pitch);
-        rotateY(point.Orientation.Yaw);
-        rotateZ(point.Orientation.Roll);
 
-        // Move the pointer based on position input
-        translate(pointerX, pointerY + point.Distance, pointerZ);
 
-        stroke(150, 0, 0);
-        sphere(10); // Small sphere to represent the point
-
-        pop();
-    }
+/* ********************************************************
+ * *** Helper and UI functions ****************************
+ * ********************************************************/
+function preload() {
+    // Preload the font before the sketch starts
+    font = loadFont('https://pti.unithe.hu:8443/common/cdn/design/fonts/roboto_mono/RobotoMono-Regular.ttf');
 }
 
 function startDrag() {
@@ -192,45 +261,6 @@ function stopDrag() {
 
 function mouseWheel(event) {
     camRadius += event.delta * 0.5; // Decrease the zoom sensitivity for smoother zooming
-}
-
-// Update the sensor data and add the transformed point to the path
-function updateSensorData(
-    newOrientationPitch, newOrientationRoll, newOrientationYaw,
-    newPositionX, newPositionY, newPositionZ,
-    newDistance
-) {
-    // Update target orientation (still in degrees)
-    targetPitch = newOrientationPitch;
-    targetRoll = newOrientationRoll;
-    targetYaw = newOrientationYaw;
-
-    // Update the distance value
-    currentDistance = newDistance;
-
-    // Convert position updates from the sensor to movement of the pointer
-    pointerX = newPositionX * 10; // Scale position changes (adjust scaling factor as needed)
-    pointerY = newPositionY * 10;
-    pointerZ = newPositionZ * 10;
-
-    let point = {
-        'Orientation': {
-            'Pitch': newOrientationPitch,
-            'Roll': newOrientationRoll,
-            'Yaw': newOrientationYaw
-        },
-        'Position': {
-            'X': newPositionX,
-            'Y': newPositionY,
-            'Z': newPositionZ
-        },
-        'Distance': newDistance
-    };
-
-    //This prints an object with YPR (Yaw-Pitch-Roll) values in the -180 and 180 interval.
-    //console.log(point);
-
-    path.push(point);
 }
 
 function windowResized() {

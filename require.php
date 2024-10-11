@@ -65,5 +65,6 @@
     require(RequestHelper::$file_root . '/views/sensor_display_view.php');
     require(RequestHelper::$file_root . '/views/sensor_display_2_view.php');
     require(RequestHelper::$file_root . '/views/sensor_display_3_view.php');
+    require(RequestHelper::$file_root . '/views/sensor_display_4_view.php');
 
 ?>

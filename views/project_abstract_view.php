@@ -58,6 +58,7 @@
                                 <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display#main">Display V1</a>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_2#main">Display V2</a>
                                 <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_3#main">Display V3</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_4#main">Display V4</a>
                             </div>
                         </div>
 
