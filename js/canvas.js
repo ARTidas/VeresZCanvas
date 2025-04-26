@@ -10,6 +10,11 @@ class Canvas extends Genesys {
         this.y2 = this.getHeight();
 
         this.diagonal_slope = (this.y2 - this.y1) / (this.x2 - this.x1);
+
+        //this.initialPitch = -90.00 * (Math.PI / 180);
+        this.initialPitch = 0.00 * (Math.PI / 180);
+        this.initialRoll = -90.00 * (Math.PI / 180);
+        this.initialYaw = 0.00 * (Math.PI / 180);
     };
 
     getWidth() {
@@ -51,14 +56,18 @@ class Canvas extends Genesys {
         /*const initialPitch = 0.0 * (Math.PI / 180);
         const initialRoll = 0.0 * (Math.PI / 180);
         const initialYaw = 0.0 * (Math.PI / 180);*/
-        const initialPitch = -90.00 * (Math.PI / 180);
+        /*const initialPitch = -90.00 * (Math.PI / 180);
         const initialRoll = -90.00 * (Math.PI / 180);
-        const initialYaw = 0.00 * (Math.PI / 180);
+        const initialYaw = 0.00 * (Math.PI / 180);*/
+        /*const initialPitch = 0.00 * (Math.PI / 180);
+        const initialRoll = -90.00 * (Math.PI / 180);
+        const initialYaw = 0.00 * (Math.PI / 180);*/
         // Convert initial YPR to Quaternion
-        let initialQuaternion = this.toQuaternion(initialYaw, initialPitch, initialRoll);
+        let initialQuaternion = this.toQuaternion(this.initialYaw, this.initialPitch, this.initialRoll);
     
         // Convert current YPR to Quaternion
-        const currentQuaternion = this.toQuaternion(-yaw, pitch, roll);
+        //const currentQuaternion = this.toQuaternion(-yaw, pitch, roll);
+        const currentQuaternion = this.toQuaternion(yaw, pitch, roll);
     
         // Combine the initial quaternion with the current quaternion
         const finalQuaternion = this.multiplyQuaternions(initialQuaternion, currentQuaternion);

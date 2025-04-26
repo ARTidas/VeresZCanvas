@@ -10,8 +10,8 @@
     require($_SERVER['DOCUMENT_ROOT'] . '/common/models/helpers/request_helper.php');
 
     RequestHelper::$common_file_root    = $_SERVER['DOCUMENT_ROOT'] . '/common';
-    RequestHelper::$project_name        = 'VeresZ Lidar';
-    RequestHelper::$project_url_name    = 'veresz_lidar'; //StringHelper::toURLSafeString(RequestHelper::$project_name);
+    RequestHelper::$project_name        = 'VeresZ Canvas';
+    RequestHelper::$project_url_name    = 'veresz_canvas'; //StringHelper::toURLSafeString(RequestHelper::$project_name);
     RequestHelper::$file_root           = dirname(__FILE__);
     RequestHelper::$request_uri         = $_SERVER['REQUEST_URI'];
     RequestHelper::$url_root            = RequestHelper::$url_domain . RequestHelper::$project_url_name;

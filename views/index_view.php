@@ -11,21 +11,20 @@
         public function displayContent() {
 			?>
                 
-				<h2>SOPs</h2>
+				<h2>Research</h2>
+                <ol>
+                    <li>
+                        <a target="_blank" href="https://docs.google.com/document/d/1QBoy37OhWgUr-fE0T7raiwuN5ePtJKRjdHgu-PCy0G8/edit?usp=sharing">
+                            Paper: Digit Drawing FrameWork in Web Browsers
+                        </a>
+                    </li>
+                </ol>
+
+                <h2>SOPs</h2>
                 <ol>
                     <li>
                         <a target="_blank" href="https://docs.google.com/document/d/15V9e15iNzkXx4SBkxOF3eUXAZ0pLFVdHzWBsZQoyi9Y/edit?usp=sharing">
                             PTI1 server
-                        </a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://docs.google.com/document/d/1o3jDbsEKUBnTCIqipTMkCzppo4HpwrZ2x5GCEAJHSDk/edit?usp=sharing">
-                            Lidar
-                        </a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://docs.google.com/document/d/19ty_z2IHc6m0cMGsQrs6ssPYEZz5O15gYSNQpujgnmc/edit?usp=sharing">
-                            Paper
                         </a>
                     </li>
                 </ol>

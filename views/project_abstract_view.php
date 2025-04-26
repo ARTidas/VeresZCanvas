@@ -41,11 +41,11 @@
          * ********************************************************/
         public function displayMenu() {
 			?>
-                <div class="box">
+                <!-- <div class="box">
                     <?php
                         print(RequestHelper::$project_name . ' > ' . RequestHelper::$actor_name . ' > ' . RequestHelper::$actor_action);
                     ?>
-                </div>
+                </div> -->
 
 				<section id="menu">
                     <nav>
@@ -53,25 +53,39 @@
                         <a href="<?php print(RequestHelper::$url_domain); ?>">PTI Main</a>
 
                         <div>
-                            <button>Sensor</button>
+                            <button>User</button>
                             <div>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display#main">Display V1</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_2#main">Display V2</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_3#main">Display V3</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/sensor/display_4#main">Display V4</a>
+                                <a href="<?php print(RequestHelper::$common_url_root); ?>/user/create">Register</a>
+                                <a href="<?php print(RequestHelper::$common_url_root); ?>/user/login">Login</a>
+                                <a href="<?php print(RequestHelper::$common_url_root); ?>/user_profile/view">Profile</a>
                             </div>
                         </div>
 
                         <div>
-                            <button>Message Queue</button>
+                            <button>Digits</button>
                             <div>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/view">View</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/get">Get</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/mqtt">MQTT</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/simulation_2">Simulation V2</a>
-                                <a href="<?php print(RequestHelper::$url_root); ?>/message_queue/simulation_3">Simulation V3</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/canvas/display_v2#main">Canvas</a>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/digit/view">Results</a>
+                                <a href="<?php print(RequestHelper::$common_url_root); ?>/js/TensorFlow/models/trainer.html">Trainer</a>
                             </div>
                         </div>
+
+                        <!-- <a href="<?php print(RequestHelper::$url_root); ?>/canvas/display_v1#main">Canvas V1</a> -->
+                        <!-- <a href="<?php print(RequestHelper::$url_root); ?>/canvas/display_v2#main">Digit drawing</a> -->
+                        <!-- <a href="<?php print(RequestHelper::$url_root); ?>/canvas/display_v3#main">Addition practice</a> -->
+
+                        <!-- <div>
+                            <button>Canvas</button>
+                            <div>
+                                <a href="<?php print(RequestHelper::$url_root); ?>/canvas/display#main">Display V1</a>
+                            </div>
+                        </div> -->
+                        <!-- <div>
+                            <button>Models</button>
+                            <div>
+                                <a href="<?php print(RequestHelper::$common_url_root); ?>/js/TensorFlow/models/trainer.html">Trainer - HandDrawnDigits</a>
+                            </div>
+                        </div> -->
 
                     </nav>
                 </section>
