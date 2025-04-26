@@ -51,7 +51,7 @@ function draw() {
     //frameRate(30);
     //frameRate(15);
     //frameRate(20);
-    frameRate(25);
+    //frameRate(25);
     if (mouseIsPressed) {
         line(pmouseX, pmouseY, mouseX, mouseY);
     }
@@ -81,10 +81,14 @@ function draw() {
  * *** Helper and UI functions ****************************
  * ********************************************************/
 function displayTask() {
-    targetDigit = Math.floor(Math.random() * 10);
+    //targetDigit = Math.floor(Math.random() * 10);
+    targetDigit = 0;
     //targetDigit = 0;
+    /*
     const circles = "●".repeat(targetDigit); // Repeat the black circle symbol
     document.getElementById("numberDisplay").innerText = (circles || "○"); // Show empty circle if 0
+    */
+    document.getElementById("numberDisplay").innerText = targetDigit;
 }
 
 

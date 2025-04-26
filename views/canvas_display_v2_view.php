@@ -69,7 +69,7 @@
 			?>
                 <div class="control-panel">
                     <button onclick="checkAnswer()" style="float:left;">Check</button>
-                    <p style="display:inline-block;color:#fff;font-weight:bold;font-size:18px;padding:6px;">Draw the number of circles!</p>
+                    <p style="display:inline-block;color:#fff;font-weight:bold;font-size:18px;padding:6px;">Draw the following digit!</p>
                     <button onclick="clearCanvas()" style="float:right;">Clear</button>
                     <br style="clear:both;" />
                 </div>

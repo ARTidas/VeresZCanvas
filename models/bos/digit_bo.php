@@ -38,7 +38,7 @@
 		public function validateDoForCreate(AbstractDo $do) {
 			foreach ($do->getAttributes() as $key => $value) {
                 // Patch for the "empty(0) = true"
-                if ($key !== 'target_digit') {
+                if ($key !== 'target_digit' && $key !== 'predicted_digit') {
                     if (self::isAttributeRequiredForCreate($key)) {
                         if (empty($value)) {
                             LogHelper::addWarning('Please fill out the following attribute: ' . $key);
@@ -54,7 +54,7 @@
 		public function isDoValidForCreate(AbstractDo $do) {
 			foreach ($do->getAttributes() as $key => $value) {
                 // Patch for the "empty(0) = true"
-                if ($key !== 'target_digit') {
+                if ($key !== 'target_digit' && $key !== 'predicted_digit') {
                     if (self::isAttributeRequiredForCreate($key)) {
                         if (empty($value)) {
                             
