@@ -48,7 +48,7 @@ function setup() {
  * ********************************************************/
 function draw() {
     //background(200);
-    //frameRate(30);
+    frameRate(30);
     //frameRate(15);
     //frameRate(20);
     //frameRate(25);
